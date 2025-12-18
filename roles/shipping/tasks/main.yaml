@@ -1,0 +1,31 @@
+- name: app-setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-setup
+
+- name: Maven-Setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: maven-setup
+
+
+
+- name: importing data into 
+  tags:
+  - import
+  community.mysql.mysql_db:
+    name: all
+    login_user: "{{ MYSQL_ROOT_USER }}"
+    login_password: "{{ MYSQL_PASSWORD }}"
+    login_host: "{{ MYSQL_HOST }}"
+    state: import
+    target: "{{ item }}"
+  loop:
+  - /app/db/schema.sql
+  - /app/db/app-user.sql 
+  - /app/db/master-data.sql
+
+- name: Shipping systemd-setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd-setup

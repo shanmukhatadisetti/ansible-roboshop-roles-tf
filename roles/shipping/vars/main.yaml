@@ -1,0 +1,5 @@
+MYSQL_ROOT_USER: root
+MYSQL_HOST: mysql.autonagar.in
+MYSQL_PASSWORD: RoboShop@1
+CART_URL: cart.autonagar.in
+MYSQL_URL: mysql.autonagar.in

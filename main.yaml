@@ -1,0 +1,6 @@
+- name: "configure roboshop {{ component }} component"
+  become: yes
+  hosts: localhost
+  connection: local
+  roles:
+  - "{{ component }}"

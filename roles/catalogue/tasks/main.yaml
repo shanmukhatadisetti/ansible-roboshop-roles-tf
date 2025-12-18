@@ -1,0 +1,29 @@
+
+
+- name: App-setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-setup
+
+- name: NodeJS-Setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: nodejs
+
+- name: copy mongodb repo
+  ansible.builtin.copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Installing mongodb
+  ansible.builtin.dnf:
+    name: mongodb-org
+    state: present
+
+- name: loading content into mongodb
+  ansible.builtin.shell: mongosh --host mongodb.autonagar.in </app/db/master-data.js
+
+- name: systemd-setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd-setup
